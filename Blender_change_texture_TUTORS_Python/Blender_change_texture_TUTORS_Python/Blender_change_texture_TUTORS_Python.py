@@ -2,6 +2,14 @@ import bpy
 import os
 import glob
 
+#function to remove packed images
+def remove_packed_images():
+    # Get the list of packed images in the current Blender file
+    packed_images = [img for img in bpy.data.images if img.packed_file is not None]
+
+    # Remove each packed image from the Blender file
+    for img in packed_images:
+        bpy.data.images.remove(img)
 
 
 # Set the base directory where the textures are stored
@@ -9,6 +17,7 @@ base_dir = "E:/aaa_harjoittelu/NFT/playground/test"
 
 # Loop through each directory in the base directory
 for subdir in os.listdir(base_dir):
+    remove_packed_images()
     # Construct the full path of the current directory
     current_dir = os.path.join(base_dir, subdir)
     
@@ -38,8 +47,10 @@ for subdir in os.listdir(base_dir):
 
         subdir_list = subdir.split("-")
         player_name = subdir_list[4]
+        player_name = player_name.lower().capitalize()
         player_number = subdir_list[3]
         rarity = subdir_list[2]
+        rarity = rarity.lower().capitalize()
         series = subdir_list[0] + " "+ subdir_list[1]
         
 
