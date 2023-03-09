@@ -4,7 +4,8 @@ import os
 import glob
 import re
 
-#merkki
+#can change series years no need to find it middle of code.
+Years = "22 - 23"
 
 
 
@@ -51,7 +52,12 @@ def arrenge_subfolder(subF ,series_number):
         return remake_list
         
     elif series_number == 2:
-        return
+        remake_list.append(subF[1])
+        remake_list.append(subF[2])
+        remake_list.append(subF[4])
+        remake_list.append(subF[3])
+        remake_list.append(Years)
+        return remake_list
         
     elif series_number == 3:
         series_number = 3
@@ -61,7 +67,7 @@ def arrenge_subfolder(subF ,series_number):
         remake_list.append(subF[2])
         remake_list.append(subF[4])
         remake_list.append(make_space_middle(subF[3]))
-        remake_list.append("22 - 23")
+        remake_list.append(Years)
         
         
         return remake_list
@@ -104,8 +110,10 @@ for subdir in os.listdir(base_dir):
     
     #if texture file is found, start make new blender file
     if texture_file:
-        # Remove the packed images from the Blender file
-        remove_packed_images()
+        
+        #if series_number != 2:
+            # Remove the packed images from the Blender file
+            #remove_packed_images()
         
         # If a texture file is found, load it into Blender
         img = bpy.data.images.load(texture_file[0])
@@ -113,8 +121,10 @@ for subdir in os.listdir(base_dir):
         #check if series is anniversary
         if series_number == 1:
             obj_name = "obj0.002"
-        else:
+        elif series_number == 2:
             obj_name = "Jersey_Red.001"
+        else:
+            obj_name = "Jersey_Red.002"
             
         
         
@@ -142,8 +152,10 @@ for subdir in os.listdir(base_dir):
         series = subdir_list[3].upper() + " "+ subdir_list[4].upper()
         
 
-
-        obj2_name = "Text.003"
+        if series_number !=2:
+            obj2_name = "Text.003"
+        else:
+            obj2_name = "Text.005"
 
         # Get the object by name
         obj2 = bpy.data.objects[obj2_name]
@@ -152,7 +164,8 @@ for subdir in os.listdir(base_dir):
         if series_number == 1:
             # Change the text of the object
             obj2.data.body = f"#{player_number} {player_name} - {rarity} Edition\n{series}\nAnniversary Series"
-        
+        elif series_number == 2:
+            obj2.data.body = f"#{player_number} {player_name} - {rarity} Edition\n\n          {series}"
         else:
             # Change the text of the object
             obj2.data.body = f"#{player_number} {player_name} - {rarity} Edition\n{series}" 
