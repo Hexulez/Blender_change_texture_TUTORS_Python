@@ -1,3 +1,4 @@
+from ast import Return
 import bpy
 import os
 import glob
@@ -5,7 +6,7 @@ import re
 
 #merkki
 
-series_number = 1
+
 
 #function to remove packed images
 def remove_packed_images():
@@ -27,11 +28,12 @@ def make_space_middle(string):
 #function to check from subfolder name first part what series we blendering 
 def check_series(first_part_of_sub):
     if first_part_of_sub.upper() == "RETRO":
-        series_number = 1
+        return 1
     elif first_part_of_sub.upper() == "HIFK2":
-        series_number = 2
+        return 2
     elif first_part_of_sub.upper() == "HIFK3":
-        series_number = 3
+        return 3
+    
 
 
 #function to arrenges subfolder name to correct order
@@ -40,8 +42,8 @@ def arrenge_subfolder(subF ,series_number):
     
     if series_number == 1:
         
-        remake_list.append(subF[4])
         remake_list.append(subF[3])
+        remake_list.append(subF[4])
         remake_list.append(subF[2])
         remake_list.append(subF[1])
         remake_list.append(subF[0])
