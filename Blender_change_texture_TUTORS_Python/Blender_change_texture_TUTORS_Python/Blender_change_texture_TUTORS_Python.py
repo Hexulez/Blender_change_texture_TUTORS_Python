@@ -4,6 +4,11 @@ import os
 import glob
 import re
 
+#
+#change that window name where you usually change that new texture name must be: Image Texture
+#
+
+
 #can change series years no need to find it middle of code.
 Years = "22 - 23"
 
