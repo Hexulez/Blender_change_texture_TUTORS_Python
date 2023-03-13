@@ -15,18 +15,18 @@ Years = "22 - 23"
 
 
 #function to remove packed images
-def remove_packed_images():
+def remove_packed_images(series_number):
     # Get the list of packed images in the current Blender file
     packed_images = [img for img in bpy.data.images if img.packed_file is not None]
-
-#    # Remove each packed image that contains "BaseColor" in its name
-#    for img in packed_images:
-#        if "BaseColor" in img.name:
-#            bpy.data.images.remove(img)
-#
-    # Remove each packed image from the Blender file
-    for img in packed_images:
-        bpy.data.images.remove(img)
+    if series_number != 1:
+        # Remove each packed image that contains "BaseColor" in its name
+        for img in packed_images:
+            if "BaseColor" in img.name:
+                bpy.data.images.remove(img)
+    else:
+        # Remove each packed image from the Blender file
+        for img in packed_images:
+            bpy.data.images.remove(img)
 
 #def make function to but space middle of string
 def make_space_middle(string):
@@ -121,9 +121,8 @@ for subdir in os.listdir(base_dir):
     #if texture file is found, start make new blender file
     if texture_file:
         
-        if series_number != 2:
-            # Remove the packed images from the Blender file
-            remove_packed_images()
+        # Remove the packed images from the Blender file
+        remove_packed_images(series_number)
         
         # If a texture file is found, load it into Blender
         img = bpy.data.images.load(texture_file[0])
