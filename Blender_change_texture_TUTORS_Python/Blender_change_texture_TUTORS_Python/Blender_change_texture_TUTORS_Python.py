@@ -19,6 +19,11 @@ def remove_packed_images():
     # Get the list of packed images in the current Blender file
     packed_images = [img for img in bpy.data.images if img.packed_file is not None]
 
+#    # Remove each packed image that contains "BaseColor" in its name
+#    for img in packed_images:
+#        if "BaseColor" in img.name:
+#            bpy.data.images.remove(img)
+#
     # Remove each packed image from the Blender file
     for img in packed_images:
         bpy.data.images.remove(img)
@@ -92,7 +97,7 @@ base_dir = dirpath
 for subdir in os.listdir(base_dir):
 
     #make subdir_list variable to split the name of the folder
-    subdir_list = re.split("-|_", subdir)
+    subdir_list = re.split("-|_| ", subdir)
 
     #check if series number
     series_number = check_series(subdir_list[0])
@@ -116,9 +121,9 @@ for subdir in os.listdir(base_dir):
     #if texture file is found, start make new blender file
     if texture_file:
         
-        #if series_number != 2:
+        if series_number != 2:
             # Remove the packed images from the Blender file
-            #remove_packed_images()
+            remove_packed_images()
         
         # If a texture file is found, load it into Blender
         img = bpy.data.images.load(texture_file[0])
@@ -129,7 +134,7 @@ for subdir in os.listdir(base_dir):
         elif series_number == 2:
             obj_name = "Jersey_Red.001"
         else:
-            obj_name = "Jersey_Red.002"
+            obj_name = "Jersey"
             
         
         
